@@ -4,7 +4,9 @@ import 'package:intl/intl.dart';
 class NewTransaction extends StatefulWidget {
   final Function addTx;
 
-  NewTransaction(this.addTx);
+  const NewTransaction(
+    this.addTx,
+  );
 
   @override
   _NewTransactionState createState() => _NewTransactionState();
@@ -50,58 +52,67 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      // color: Colors.grey,
-      child: Container(
-        margin: EdgeInsets.all(10.0),
-        padding: EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            TextField(
-              controller: _titleController,
-              decoration: InputDecoration(
-                labelText: 'Title',
-              ),
-              onSubmitted: (_) => _submitDate(),
-              // autofocus: true,
-            ),
-            TextField(
-              controller: _amountController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: 'Amount',
-              ),
-              onSubmitted: (_) => _submitDate(),
-            ),
-            Row(
-              children: [
-                Text(
-                  _selectedDate == null
-                      ? 'No Date Chosen!'
-                      : ('Picked Date: ${DateFormat.yMd().format(_selectedDate)}'),
+    return SingleChildScrollView(
+      child: Card(
+        child: Container(
+          // height: MediaQuery.of(context).size.height * 0.5,
+          padding: EdgeInsets.only(
+            top: 10,
+            left: 10,
+            right: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              TextField(
+                controller: _titleController,
+                decoration: const InputDecoration(
+                  labelText: 'Title',
                 ),
-                FlatButton(
-                  textColor: Theme.of(context).primaryColor,
-                  child: Text(
-                    'Chooe Date',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
+                onSubmitted: (_) => _submitDate(),
+                // autofocus: true,
+              ),
+              TextField(
+                controller: _amountController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  labelText: 'Amount',
+                ),
+                onSubmitted: (_) => _submitDate(),
+              ),
+              Row(
+                children: [
+                  Text(
+                    _selectedDate == null
+                        ? 'No Date Chosen!'
+                        : ('Picked Date: ${DateFormat.yMd().format(_selectedDate)}'),
                   ),
-                  onPressed: _persentDatePicker,
-                ),
-              ],
-            ),
-            RaisedButton(
-              color: Theme.of(context).primaryColor,
-              textColor: Theme.of(context).textTheme.button.color,
-              onPressed: _submitDate,
-              child: Text(
-                'Add Transaction',
+                  FlatButton(
+                    textColor: Theme.of(context).primaryColor,
+                    child: const Text(
+                      'Chooe Date',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: _persentDatePicker,
+                  ),
+                ],
               ),
-            ),
-          ],
+              RaisedButton(
+                color: Theme.of(context).primaryColor,
+                textColor: Theme.of(context).textTheme.button.color,
+                onPressed: _submitDate,
+                child: const Text(
+                  'Add Transaction',
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.3,
+              )
+            ],
+          ),
         ),
       ),
     );
